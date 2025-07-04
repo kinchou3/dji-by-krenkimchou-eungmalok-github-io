@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url("./cover.png");
+    background-position: center;
+    background-size: cover;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+header .navber {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.navber .menu-link {
+    display: flex;
+    gap: 40px;
+}
+
+.navber .logo {
+    font-size: 2.1rem;
+    font-weight: 600;
+}
+
+.navber .logo span {
+    color: #c06b3e;
+}
+
+.navber a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s ease;
+    padding: 10px;
+}
+
+.navber a:hover {
+    color: #c26a3a;
+    /* background-color: #c26a3a; */
+    letter-spacing: 1px;
+    border-radius: 10px;
+}
+
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.hero-section .content {
+    color: #ffff;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.hero-section .content h1 {
+    font-size: 3rem;
+    max-width: 600px;
+
+}
+
+.hero-section .content p {
+    font-weight: 300;
+    margin-top: 15px;
+    max-width: 600px;
+}
+
+button {
+    background-color: darkgreen;
+    color: white;
+    margin: 10px;
+    padding: 5 10 px;
+}

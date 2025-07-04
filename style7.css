@@ -1,0 +1,218 @@
+/* About Page Styles */
+.about-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./drone-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.container h2 {
+    color: #c26a3a;
+}
+
+.btn {
+    display: inline-block;
+    background: rgb(128,128,128);
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #c26a3a;
+    color: black;
+    transition: 0.5s;
+    letter-spacing: 3px;
+}
+
+
+header {
+    background: rgb(53, 53, 53);
+    color: white;
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    transition: color 0.5s;
+    padding: 10px;
+}
+
+nav ul li a i {
+    margin: 10px;
+}
+
+.spen a {
+    color: rgb(0, 0, 0);
+    transition: 0.5s;
+    padding: 10px;
+}
+
+.spen a:hover {
+    color: black;
+    letter-spacing: 4px;
+    background-color: #c26a3a;
+    border-radius: 50px;
+    
+}
+
+nav ul li a:hover {
+    color: #c26a3a;
+    /* background-color: #c26a3a; */
+    letter-spacing: 1px;
+    transition: 0.5s;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.feature {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 5px;
+    background: #f9f9f9;
+    transition: transform 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: #c26a3a;
+    margin-bottom: 20px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 5px solid #c26a3a;
+}
+
+.stats {
+    background-color: #c26a3a;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.stats .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.stat-item h3 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.contact-cta {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #f5f5f5;
+}
+
+.contact-cta h2 {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+footer {
+    background-color: #222;
+    color: white;
+    padding: 60px 0 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    color: #c26a3a;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-section p, .footer-section li {
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.footer-section a {
+    color: white;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #c26a3a;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}

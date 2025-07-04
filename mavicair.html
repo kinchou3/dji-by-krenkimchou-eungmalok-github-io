@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>GeForce</title>
+    <link rel="icon" href="./x-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS will be placed here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-category {
+            color: #777;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .original-price {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .rating {
+            margin-bottom: 15px;
+        }
+        
+        .rating i {
+            color: #f39c12;
+            font-size: 14px;
+        }
+        
+        .rating-count {
+            color: #777;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-to-cart i {
+            margin-right: 8px;
+        }
+        
+        .add-to-cart:hover {
+            background: #2980b9;
+        }
+        
+        .stock-status {
+            font-size: 12px;
+            color: #27ae60;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .stock-status i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-card">
+        <div class="product-image">
+            <img src="./mavic-air.png" alt="mavic-air">
+            <!-- <div class="discount-badge">25% OFF</div> -->
+        </div>
+        <div class="product-info">
+            <div class="product-category">DJI</div>
+            <h3 class="product-title">DJI MAVIC AIR</h3>
+            <p class="product-description">The DJI MAVIC AIR is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+            
+            <div class="price-container">
+                <span class="current-price">$550</span>
+                <!-- <span class="original-price">$199.99</span> -->
+            </div>
+            
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="rating-count">(128 reviews)</span>
+            </div>
+            
+            <button class="add-to-cart">
+                <span class="material-symbols-outlined">shopping_cart</span> Buy Now
+            </button>
+            
+            <div class="stock-status">
+                <a href="./index2.html"><span class="material-symbols-outlined">arrow_back</span></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

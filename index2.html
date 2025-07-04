@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>DJI CAMBODIA</title>
+    <link rel="stylesheet" href="./style2.css">
+    <link rel="icon" href="./x-icon.webp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add this to your existing CSS */
+        .search-container {
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+        #productSearch {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #c26a3a;
+            border-radius: 25px;
+            outline: none;
+        }
+        #searchResults {
+            display: none;
+            position: absolute;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        #searchResults a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+        #searchResults a:hover {
+            background-color: #f5f5f5;
+            color: #c26a3a;
+        }
+        .no-results {
+            padding: 15px;
+            color: #666;
+            text-align: center;
+        }
+
+         /* Add this modal CSS to your existing styles */
+         .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #5788a7;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        #cartItems {
+            margin: 20px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .item-info {
+            flex-grow: 1;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: #c26a3a;
+        }
+        
+        .remove-item {
+            color: #ff0000;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+        
+        #cartTotal {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: right;
+            margin: 20px 0;
+        }
+        
+        #checkoutBtn {
+            width: 100%;
+            padding: 12px;
+            background-color: #c26a3a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+        
+        #checkoutBtn:hover {
+            background-color: #a85832;
+        }
+
+        /* QR Payment Modal Styles */
+#qrCodeContainer {
+    margin: 20px auto;
+    padding: 10px;
+    background: white;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.currency-toggle {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.currency-btn {
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.currency-btn.active {
+    background-color: #c26a3a;
+    color: white;
+    border-color: #a85832;
+}
+
+.payment-instructions {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    text-align: left;
+    display: inline-block;
+}
+
+.payment-instructions p {
+    margin: 5px 0;
+}
+
+#confirmPayment {
+    margin-top: 15px;
+    background-color: #4CAF50;
+    width: 100%;
+}
+
+#confirmPayment:hover {
+    background-color: #45a049;
+}
+
+#qrAmountKhr {
+    color: #c26a3a;
+    font-weight: bold;
+}
+
+    </style>
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>DJI CAMBODIA</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="./index.html"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li>
+                        <a href="#">Products</a>
+                        <!-- <ul class="dropdown">
+                            <li><a href="./index2.html">DJI MAVIC MINI</a></li>
+                            <li><a href="./index3.html">RTX 5080</a></li>
+                            <li><a href="./index7.html">RTX 5090</a></li>
+                        </ul> -->
+                    </li>
+                    <li><a href="./index7.html">About</a></li>
+                    <li><a href="./Contact.html">Contact</a></li>
+                    <li><a href="#" id="cartLink"><i class="fas fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)</a></li>
+                        <div id="cartModal" class="modal">
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Your Shopping Cart</h2>
+                        <div id="cartItems"></div>
+                        <div id="cartTotal">Total: $0</div>
+                        <button id="checkoutBtn" class="btn">Proceed to Checkout</button>
+                        </div>
+                        </div>
+                </ul>
+            </nav>
+        </div>
+
+    </header>
+    <section>
+        <body>
+    
+            <!-- QR Payment Modal -->
+            
+<div id="qrModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close">&times;</span>
+        <h2>ABA Pay - Scan to Complete Payment</h2>
+        <div id="qrCodeContainer">
+            <!-- Default QR code (KHR) -->
+            <img id="khrQr" src="./qr-kh.jpg" alt="ABA Pay QR Code (KHR)" style="max-width: 300px; display: block; margin: 0 auto;">
+            <!-- USD QR code (hidden by default) -->
+            <img id="usdQr" src="./qr-$.jpg" alt="ABA Pay QR Code (USD)" style="max-width: 300px; display: none; margin: 0 auto;">
+        </div>
+        <div class="currency-toggle">
+            <button id="toggleKhr" class="currency-btn active">Pay in KHR</button>
+            <button id="toggleUsd" class="currency-btn">Pay in USD</button>
+        </div>
+        <p>Total Amount: <span id="qrAmount">$0</span> (<span id="qrAmountKhr">0៛</span>)</p>
+        <div class="payment-instructions">
+            <p>1. Open ABA Mobile App</p>
+            <p>2. Tap 'Scan & Pay'</p>
+            <p>3. Scan the QR code</p>
+            <p>4. Confirm payment</p>
+        </div>
+        <button id="confirmPayment" class="btn">I've Completed Payment</button>
+    </div>
+</div>
+    
+
+    <!-- Your existing scripts -->
+    <script src="./java1.js"></script>
+    <script>
+        // Your existing search functionality script
+        document.addEventListener('DOMContentLoaded', function() {
+            const productSearch = document.getElementById('productSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Array of your DJI products
+            const products = [
+                { name: "DJI MAVIC MINI", url: "./index4.html" },
+                { name: "DJI MAVIC MINI 2", url: "./index5.html" },
+                { name: "DJI MAVIC MINI 2SE", url: "./index6.html" },
+                { name: "DJI MAVIC MINI 3", url: "./index3.html" },
+               
+            ];
+
+            productSearch.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toUpperCase();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm === '') {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toUpperCase().includes(searchTerm)
+                    || product.name.replace(/DJI/gi, '').toUpperCase().includes(searchTerm)
+                    || product.name.replace(/MAVIC/gi, '').toUpperCase().includes(searchTerm));
+                
+                if (filteredProducts.length > 0) {
+                    filteredProducts.forEach(product => {
+                        const resultItem = document.createElement('a');
+                        resultItem.href = product.url;
+                        resultItem.textContent = product.name;
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = 'No matching products found';
+                    searchResults.appendChild(noResults);
+                    searchResults.style.display = 'block';
+                }
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== productSearch) {
+                    searchResults.style.display = 'none';
+                }
+            });
+            
+            // Shopping Cart Functionality
+            const cart = [];
+            const cartModal = document.getElementById('cartModal');
+            const cartLink = document.getElementById('cartLink');
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const closeBtn = document.querySelector('.close');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const addToCartButtons = document.querySelectorAll('.product .btn');
+
+            // QR Payment Functionality
+const qrModal = document.getElementById('qrModal');
+const qrAmount = document.getElementById('qrAmount');
+const qrAmountKhr = document.getElementById('qrAmountKhr');
+const confirmPayment = document.getElementById('confirmPayment');
+const toggleKhr = document.getElementById('toggleKhr');
+const toggleUsd = document.getElementById('toggleUsd');
+const khrQr = document.getElementById('khrQr');
+const usdQr = document.getElementById('usdQr');
+let paymentTotal = 0;
+
+// Currency toggle functionality
+toggleKhr.addEventListener('click', function() {
+    this.classList.add('active');
+    toggleUsd.classList.remove('active');
+    khrQr.style.display = 'block';
+    usdQr.style.display = 'none';
+});
+
+toggleUsd.addEventListener('click', function() {
+    this.classList.add('active');
+    toggleKhr.classList.remove('active');
+    khrQr.style.display = 'none';
+    usdQr.style.display = 'block';
+});
+
+// Modify the checkout button click handler to show QR payment
+document.getElementById('checkoutBtn').addEventListener('click', function() {
+    if (cart.length > 0) {
+        // Calculate total
+        paymentTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        qrAmount.textContent = '$' + paymentTotal.toFixed(2);
+        
+        // Convert to KHR (assuming 1 USD = 4000 KHR for demo)
+        const khrAmount = paymentTotal * 4000;
+        qrAmountKhr.textContent = khrAmount.toLocaleString('en-US') + '៛';
+        
+        // Close cart modal and open QR modal
+        cartModal.style.display = 'none';
+        qrModal.style.display = 'block';
+    } else {
+        alert('Your cart is empty. Please add some items before checking out.');
+    }
+});
+
+// Confirm payment button
+confirmPayment.addEventListener('click', function() {
+    alert('Thank you for your payment! Your order #' + Math.floor(Math.random() * 1000000) + ' has been confirmed.');
+    // Clear the cart
+    cart.length = 0;
+    updateCart();
+    qrModal.style.display = 'none';
+});
+
+// Close QR modal
+document.querySelector('#qrModal .close').addEventListener('click', function() {
+    qrModal.style.display = 'none';
+});
+
+// Close QR modal when clicking outside
+window.addEventListener('click', function(e) {
+    if (e.target === qrModal) {
+        qrModal.style.display = 'none';
+    }
+});
+
+// Close QR modal
+document.querySelector('#qrModal .close').addEventListener('click', function() {
+    qrModal.style.display = 'none';
+});
+
+// Close QR modal when clicking outside
+window.addEventListener('click', function(e) {
+    if (e.target === qrModal) {
+        qrModal.style.display = 'none';
+    }
+});
+            
+            // Product data (should match your actual products)
+            const productData = {
+                "MAVIC MINI": { price: 199, image: "./mavic-mini.png" },
+                "MAVIC MINI 2": { price: 199, image: "./mavic-mini2.webp" },
+                "MAVIC MINI 2SE": { price: 199, image: "./mavic-mini 2 se.jpg" },
+                "MAVIC MINI 3": { price: 199, image: "./mini3.png" }
+            };
+            
+            // Add to cart functionality
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productElement = this.closest('.product');
+                    const productName = productElement.querySelector('h3').textContent;
+                    const productPrice = parseFloat(productElement.querySelector('.price').textContent.replace('$', ''));
+                    const productImage = productElement.querySelector('img').src;
+                    
+                    addToCart(productName, productPrice, productImage);
+                });
+            });
+            
+            function addToCart(name, price, image) {
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.name === name);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name: name,
+                        price: price,
+                        image: image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showNotification(`${name} added to cart`);
+            }
+            
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart modal content
+                cartItems.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p>Your cart is empty</p>';
+                    cartTotal.textContent = 'Total: $0';
+                } else {
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'cart-item';
+                        itemElement.innerHTML = `
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="item-info">
+                                <div>${item.name}</div>
+                                <div>$${item.price} x ${item.quantity}</div>
+                            </div>
+                            <div class="item-price">$${itemTotal.toFixed(2)}</div>
+                            <span class="remove-item" data-name="${item.name}">&times;</span>
+                        `;
+                        
+                        cartItems.appendChild(itemElement);
+                    });
+                    
+                    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+                    
+                    // Add event listeners to remove buttons
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const itemName = this.getAttribute('data-name');
+                            removeFromCart(itemName);
+                        });
+                    });
+                }
+            }
+            
+            function removeFromCart(name) {
+                const itemIndex = cart.findIndex(item => item.name === name);
+                
+                if (itemIndex !== -1) {
+                    cart.splice(itemIndex, 1);
+                    updateCart();
+                }
+            }
+            
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.textContent = message;
+                notification.style.position = 'fixed';
+                notification.style.bottom = '20px';
+                notification.style.right = '20px';
+                notification.style.backgroundColor = '#c26a3a';
+                notification.style.color = 'white';
+                notification.style.padding = '15px';
+                notification.style.borderRadius = '5px';
+                notification.style.zIndex = '1000';
+                notification.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 500);
+                }, 3000);
+            }
+            
+            // Cart modal controls
+            cartLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                cartModal.style.display = 'block';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                cartModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+            
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length > 0) {
+                    alert('Proceeding to checkout! In a real implementation, this would redirect to a checkout page.');
+                    // In a real implementation, you would redirect to a checkout page
+                    // window.location.href = './checkout.html';
+                } else {
+                    alert('Your cart is empty. Please add some items before checking out.');
+                }
+            });
+        });
+    </script>
+    
+
+    <!-- Add this search container right after the header -->
+    <div class="search-container">
+        <input type="text" id="productSearch" placeholder="Search DJI Mavic Mini models..." autocomplete="off">
+        <div id="searchResults"></div>
+    </div>
+
+    <!-- Your existing product sections -->
+    <section id="products" class="products">
+        <!-- All your existing product content -->
+    </section>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2 style="color: #c26a3a;">DJI MAVIC MINI</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index4.html"><img src="./mavic-mini.png" alt="mavic-mini"></a>
+                    <h3>MAVIC MINI</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mavic Mini Combo- Drone with Camera 3-Axis Gimbal GPS 30min Flight Time, less than 0.55lbs, Gray.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index4.html"><img src="./mavic-mini.png" alt="mavic-mini"></a>
+                    <h3>MAVIC MINI</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mavic Mini Combo- Drone with Camera 3-Axis Gimbal GPS 30min Flight Time, less than 0.55lbs, Gray.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index4.html"><img src="./mavic-mini.png" alt="mavic-mini"></a>
+                    <h3>MAVIC MINI</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mavic Mini Combo- Drone with Camera 3-Axis Gimbal GPS 30min Flight Time, less than 0.55lbs, Gray.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index4.html"><img src="./mavic-mini.png" alt="mavic-mini"></a>
+                    <h3>MAVIC MINI</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mavic Mini Combo- Drone with Camera 3-Axis Gimbal GPS 30min Flight Time, less than 0.55lbs, Gray.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC MINI 2</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index5.html"><img src="./mavic-mini2.webp" alt="mavic-mini2"></a>
+                    <h3>MAVIC MINI 2</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index5.html"><img src="./mavic-mini2.webp" alt="mavic-mini2"></a>
+                    <h3>MAVIC MINI 2</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index5.html"><img src="./mavic-mini2.webp" alt="mavic-mini2"></a>
+                    <h3>MAVIC MINI 2</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index5.html"><img src="./mavic-mini2.webp" alt="mavic-mini2"></a>
+                    <h3>MAVIC MINI 2</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC MINI 2SE</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index6.html"><img src="./mavic-mini 2 se.jpg" alt="mavic-mini 2 se"></a>
+                    <h3>MAVIC MINI 2SE</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index6.html"><img src="./mavic-mini 2 se.jpg" alt="mavic-mini 2 se"></a>
+                    <h3>MAVIC MINI 2SE</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index6.html"><img src="./mavic-mini 2 se.jpg" alt="mavic-mini 2 se"></a>
+                    <h3>MAVIC MINI 2SE</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index6.html"><img src="./mavic-mini 2 se.jpg" alt="mavic-mini 2 se"></a>
+                    <h3>MAVIC MINI 2SE</h3>
+                    <p class="price">$199</p>
+                    <p class="description">The DJI Mini 2 is a lightweight, foldable, and beginner-friendly drone known for its impressive performance, stunning image quality, and ease of use. It's designed to be ultra-portable, weighing under 249 grams, and features 4K video recording, 12MP photos, and up to 31 minutes of flight time.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC MINI 3</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index3.html"><img src="./mini3.png" alt="mini3"></a>
+                    <h3>MAVIC MINI 3</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mini 3 (DJI RC), Lightweight 3x Mechanical Gimbal Drones with Camera for Adults 4K, 38-min Flight Time, up to 32800ft (10km) Video Transmission, Vertical Shooting, GPS Auto Return Integrated</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index3.html"><img src="./mini3.png" alt="mini3"></a>
+                    <h3>MAVIC MINI 3</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mini 3 (DJI RC), Lightweight 3x Mechanical Gimbal Drones with Camera for Adults 4K, 38-min Flight Time, up to 32800ft (10km) Video Transmission, Vertical Shooting, GPS Auto Return Integrated</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index3.html"><img src="./mini3.png" alt="mini3"></a>
+                    <h3>MAVIC MINI 3</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mini 3 (DJI RC), Lightweight 3x Mechanical Gimbal Drones with Camera for Adults 4K, 38-min Flight Time, up to 32800ft (10km) Video Transmission, Vertical Shooting, GPS Auto Return Integrated</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index3.html"><img src="./mini3.png" alt="mini3"></a>
+                    <h3>MAVIC MINI 3</h3>
+                    <p class="price">$199</p>
+                    <p class="description">DJI Mini 3 (DJI RC), Lightweight 3x Mechanical Gimbal Drones with Camera for Adults 4K, 38-min Flight Time, up to 32800ft (10km) Video Transmission, Vertical Shooting, GPS Auto Return Integrated</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC AIR</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index8.html"><img src="./mavic-air.png" alt="mavic-air"></a>
+                    <h3>MAVIC MAVIC AIR</h3>
+                    <p class="price">$350</p>
+                    <p class="description">    A small drone with huge ambitions, the DJI Mavic Air packs 4K video recording, a three-axis gimbal, an upgraded obstacle avoidance system and onboard storage into a compact and foldable form factor that easily slips into a jacket pocket. You’d be hard pressed to find a better drone that packs up so neatly and has as many smarts as this one.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index8.html"><img src="./mavic-air.png" alt="mavic-air"></a>
+                    <h3>MAVIC MAVIC AIR</h3>
+                    <p class="price">$350</p>
+                    <p class="description">    A small drone with huge ambitions, the DJI Mavic Air packs 4K video recording, a three-axis gimbal, an upgraded obstacle avoidance system and onboard storage into a compact and foldable form factor that easily slips into a jacket pocket. You’d be hard pressed to find a better drone that packs up so neatly and has as many smarts as this one.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index8.html"><img src="./mavic-air.png" alt="mavic-air"></a>
+                    <h3>MAVIC MAVIC AIR</h3>
+                    <p class="price">$350</p>
+                    <p class="description">    A small drone with huge ambitions, the DJI Mavic Air packs 4K video recording, a three-axis gimbal, an upgraded obstacle avoidance system and onboard storage into a compact and foldable form factor that easily slips into a jacket pocket. You’d be hard pressed to find a better drone that packs up so neatly and has as many smarts as this one.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index8.html"><img src="./mavic-air.png" alt="mavic-air"></a>
+                    <h3>MAVIC MAVIC AIR</h3>
+                    <p class="price">$350</p>
+                    <p class="description">    A small drone with huge ambitions, the DJI Mavic Air packs 4K video recording, a three-axis gimbal, an upgraded obstacle avoidance system and onboard storage into a compact and foldable form factor that easily slips into a jacket pocket. You’d be hard pressed to find a better drone that packs up so neatly and has as many smarts as this one.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC AIR 2</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index9.html"><img src="./mavic-air-2.jpg" alt="mavic-air-2"></a>
+                    <h3>MAVIC MAVIC AIR 2</h3>
+                    <p class="price">$599</p>
+                    <p class="description">DJI Mavic Air 2 Fly More Combo - Drone Quadcopter UAV with 48MP Camera 4K Video 8K Hyperlapse 1/2" CMOS Sensor 3-Axis Gimbal 34min Flight Time ActiveTrack 3.0 Ocusync 2.0, Gray</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index9.html"><img src="./mavic-air-2.jpg" alt="mavic-air-2"></a>
+                    <h3>MAVIC MAVIC AIR 2</h3>
+                    <p class="price">$599</p>
+                    <p class="description">DJI Mavic Air 2 Fly More Combo - Drone Quadcopter UAV with 48MP Camera 4K Video 8K Hyperlapse 1/2" CMOS Sensor 3-Axis Gimbal 34min Flight Time ActiveTrack 3.0 Ocusync 2.0, Gray</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index9.html"><img src="./mavic-air-2.jpg" alt="mavic-air-2"></a>
+                    <h3>MAVIC MAVIC AIR 2</h3>
+                    <p class="price">$599</p>
+                    <p class="description">DJI Mavic Air 2 Fly More Combo - Drone Quadcopter UAV with 48MP Camera 4K Video 8K Hyperlapse 1/2" CMOS Sensor 3-Axis Gimbal 34min Flight Time ActiveTrack 3.0 Ocusync 2.0, Gray</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index9.html"><img src="./mavic-air-2.jpg" alt="mavic-air-2"></a>
+                    <h3>MAVIC MAVIC AIR 2</h3>
+                    <p class="price">$599</p>
+                    <p class="description">DJI Mavic Air 2 Fly More Combo - Drone Quadcopter UAV with 48MP Camera 4K Video 8K Hyperlapse 1/2" CMOS Sensor 3-Axis Gimbal 34min Flight Time ActiveTrack 3.0 Ocusync 2.0, Gray</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <h2>DJI MAVIC AIR 3S</h2>
+            <div class="product-grid">
+                <div class="product">
+                    <a href="./index10.html"><img src="./mavic-air-3.webp" alt="mavic-air-3"></a>
+                    <h3>MAVIC AIR 3S</h3>
+                    <p class="price">$799</p>
+                    <p class="description">DJI Air 3 Fly More Combo with DJI RC 2, Drone with Camera 4K, Dual Primary Cameras, 3 Batteries for Extended Flight Time, 48MP Photo, 20Km Max Video Transmission, FAA Remote ID Compliant.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index10.html"><img src="./mavic-air-3.webp" alt="mavic-air-3"></a>
+                    <h3>MAVIC AIR 3S</h3>
+                    <p class="price">$799</p>
+                    <p class="description">DJI Air 3 Fly More Combo with DJI RC 2, Drone with Camera 4K, Dual Primary Cameras, 3 Batteries for Extended Flight Time, 48MP Photo, 20Km Max Video Transmission, FAA Remote ID Compliant.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+                
+                <div class="product">
+                    <a href="./index10.html"><img src="./mavic-air-3.webp" alt="mavic-air-3"></a>
+                    <h3>MAVIC AIR 3S</h3>
+                    <p class="price">$799</p>
+                    <p class="description">DJI Air 3 Fly More Combo with DJI RC 2, Drone with Camera 4K, Dual Primary Cameras, 3 Batteries for Extended Flight Time, 48MP Photo, 20Km Max Video Transmission, FAA Remote ID Compliant.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+
+                <div class="product">
+                    <a href="./index10.html"><img src="./mavic-air-3.webp" alt="mavic-air-3"></a>
+                    <h3>MAVIC AIR 3S</h3>
+                    <p class="price">$799</p>
+                    <p class="description">DJI Air 3 Fly More Combo with DJI RC 2, Drone with Camera 4K, Dual Primary Cameras, 3 Batteries for Extended Flight Time, 48MP Photo, 20Km Max Video Transmission, FAA Remote ID Compliant.</p>
+                    <button class="btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+        
+    <section class="about-2">
+        <div class="header">
+            <ul>
+                <li><a href="#" target="_blank"><i class="fa-brands fa-facebook"></i>Facebook</a></li>
+                <li><a href="https://youtube.com/@kimchoukren" target="_blank"><i class="fa-brands fa-youtube"></i>Youtube</a></li>
+                <li><a href="https://t.me/Kimchou565790" target="_blank"><i class="fa-brands fa-telegram"></i>Telegram</a></li>
+            </ul>
+        </div>
+    </section>
+    <script src="./java.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productSearch = document.getElementById('productSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Array of your DJI products
+            const products = [
+                { name: "DJI MAVIC MINI", url: "./index4.html" },
+                { name: "DJI MAVIC MINI 2", url: "./index5.html" },
+                { name: "DJI MAVIC MINI 2SE", url: "./index6.html" },
+                { name: "DJI MAVIC MINI 3", url: "./index3.html" },
+                //{ name: "DJI MAVIC MINI 3", url: "#" } // Add correct URL
+            ];
+
+            productSearch.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toUpperCase();
+                searchResults.innerHTML = '';
+                
+                if (searchTerm === '') {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toUpperCase().includes(searchTerm)
+                    || product.name.replace(/DJI/gi, '').toUpperCase().includes(searchTerm)
+                    || product.name.replace(/MAVIC/gi, '').toUpperCase().includes(searchTerm));
+                
+                if (filteredProducts.length > 0) {
+                    filteredProducts.forEach(product => {
+                        const resultItem = document.createElement('a');
+                        resultItem.href = product.url;
+                        resultItem.textContent = product.name;
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.style.display = 'block';
+                } else {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = 'No matching products found';
+                    searchResults.appendChild(noResults);
+                    searchResults.style.display = 'block';
+                }
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target !== productSearch) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</div>
+</html>
